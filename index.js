@@ -1,55 +1,43 @@
-const callHistoryData=[];
-// Love count
+const callHistoryData = [];
 let loveCount = 0;
 const availableHeart = document.getElementById("heart-available");
 const loveIcons = document.getElementsByClassName("love");
 for (const icon of loveIcons) {
-    icon.addEventListener("click", function () {
-        loveCount++;
-        availableHeart.innerText = loveCount;
-    });
+  icon.addEventListener("click", function () {
+    loveCount++;
+    availableHeart.innerText = loveCount;
+  });
 }
-
-// Copy count
 let copyCount = 2;
-const availableCopyCount = document.getElementById('copy-count');
+const availableCopyCount = document.getElementById("copy-count");
 const cards = document.querySelectorAll(".card");
 cards.forEach((card, index) => {
   const copyBtn = card.querySelector(".copy-btn");
-  copyBtn.addEventListener("click", function() {
+  copyBtn.addEventListener("click", function () {
     copyCount++;
-    availableCopyCount.innerText=copyCount;
-    //console.log("Copy button clicked in card:", index + 1);
+    availableCopyCount.innerText = copyCount;
     const number = card.querySelector("h1.text-2xl").innerText;
     navigator.clipboard.writeText(number);
     alert(`Copied: ${number}`);
   });
 });
-
-
-// Functionality of call button
-const callHistoryContainer = document.getElementById('call-history-container');
-const coinCount = document.getElementById('coin-count');
-
+const callHistoryContainer = document.getElementById("call-history-container");
+const coinCount = document.getElementById("coin-count");
 cards.forEach((card, index) => {
   const callBtn = card.querySelector(".call-btn");
-
-  callBtn.addEventListener("click", function() {
+  callBtn.addEventListener("click", function () {
     let currentCoin = parseInt(coinCount.innerText);
-
     if (currentCoin < 20) {
-      alert("You don't have enough coins. You need at least 20 coins to make a call");
+      alert(
+        "You don't have enough coins. You need at least 20 coins to make a call"
+      );
       return;
     }
-
     currentCoin -= 20;
     coinCount.innerText = currentCoin;
-
     const serviceType = card.querySelector("h1.calling").innerText;
     const number = card.querySelector("h1.text-2xl").innerText;
     alert(`Calling ${serviceType} ${number}...`);
-
-    // Call history save
     const div = document.createElement("div");
     div.innerHTML = `
       <div class="flex justify-between bg-[#FAFAFA] rounded-xl h-[70px] items-center m-3">
@@ -62,15 +50,11 @@ cards.forEach((card, index) => {
         </div>
       </div>
     `;
-
     callHistoryContainer.appendChild(div);
   });
 });
-
-document.getElementById('clear-call-history-btn').addEventListener('click', function name(params) {
+document
+  .getElementById("clear-call-history-btn")
+  .addEventListener("click", function name(params) {
     callHistoryContainer.innerHTML = "";
-})
-
-
-
-
+  });
